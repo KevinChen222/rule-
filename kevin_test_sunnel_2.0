@@ -43,13 +43,18 @@ ruleset=🐟 漏网之鱼,[]FINAL
 
 ;策略组定义
 custom_proxy_group=亚洲跳板`select`[]♐ 香港均衡`[]🔯 香港故转`[]♌ 新加坡均衡`[]🔯 新加坡故转`[]✈️ 香港自动选择`[]⭐ 香港故转`[]⭐ 日本故转`[]🟣 低倍率均衡`[]🔴 低倍率故转`[]🐸 手动切换`[]DIRECT
-custom_proxy_group=亚洲落地`select`!!GROUPID=1!!(TW|🇹🇼|台湾|Taiwan|HK|🇭🇰|香港|Hong Kong|JP|🇯🇵|日本|Japan|KR|🇰🇷|韩国|South Korea|MO|🇲🇴|澳门|Macau|SG|新加坡|Singapore|MY|🇲🇾|马来西亚|Malaysia|TH|🇹🇭|泰国|Thailand|VN|🇻🇳|越南|Vietnam|PH|🇵🇭|菲律宾|Philippines|ID|🇮🇩|印度尼西亚|Indonesia|LA|🇱🇸|老挝|Laos|KH|🇰🇭|柬埔寨|Cambodia|MM|🇲🇲|缅甸|Myanmar)
+custom_proxy_group=🟡 亚洲链式`select`!!GROUPID=1!!(TW|🇹🇼|台湾|Taiwan|HK|🇭🇰|香港|Hong Kong|JP|🇯🇵|日本|Japan|KR|🇰🇷|韩国|South Korea|MO|🇲🇴|澳门|Macau|SG|新加坡|Singapore|MY|🇲🇾|马来西亚|Malaysia|TH|🇹🇭|泰国|Thailand|VN|🇻🇳|越南|Vietnam|PH|🇵🇭|菲律宾|Philippines|ID|🇮🇩|印度尼西亚|Indonesia|LA|🇱🇸|老挝|Laos|KH|🇰🇭|柬埔寨|Cambodia|MM|🇲🇲|缅甸|Myanmar)
 
 custom_proxy_group=美洲跳板`select`[]🗽 美国均衡`[]🍙 日本均衡`[]🟣 低倍率均衡`[]🔯 日本故转`[]🔯 美国故转`[]♐ 香港均衡`[]🕊️ 低倍率节点`[]🔴 低倍率故转`[]⭐ 日本故转`[]⭐ 美国故转`[]🐸 手动切换`[]DIRECT
-custom_proxy_group=美洲落地`select`!!GROUPID=1!!(US|🇺🇸|美国|United States|USA|CA|🇨🇦|加拿大|Canada|BR|🇧🇷|巴西|Brazil|MX|🇲🇽|墨西哥|Mexico|AR|🇦🇷|阿根廷|Argentina|CL|🇨🇱|智利|Chile|CO|🇨🇴|哥伦比亚|Colombia|PE|🇵🇪|秘鲁|Peru)
+custom_proxy_group=⚫ 美洲链式`select`!!GROUPID=1!!(US|🇺🇸|美国|United States|USA|CA|🇨🇦|加拿大|Canada|BR|🇧🇷|巴西|Brazil|MX|🇲🇽|墨西哥|Mexico|AR|🇦🇷|阿根廷|Argentina|CL|🇨🇱|智利|Chile|CO|🇨🇴|哥伦比亚|Colombia|PE|🇵🇪|秘鲁|Peru)
 
 custom_proxy_group=欧洲跳板`select`[]🟣 低倍率均衡`[]🍙 日本均衡`[]♐ 香港均衡`[]♌ 新加坡均衡`[]🕊️ 低倍率节点`[]🔴 低倍率故转`[]🌍 欧洲节点`[]⭐ 日本故转`[]⭐ 香港故转`[]🐸 手动切换`[]DIRECT
-custom_proxy_group=欧洲落地`select`!!GROUPID=1!!(DE|🇩🇪|德国|Germany|FR|🇫🇷|法国|France|IT|🇮🇹|意大利|Italy|ES|🇪🇸|西班牙|Spain|GB|🇬🇧|英国|United Kingdom|UK|RU|🇷🇺|俄罗斯|Russia|PL|🇵🇱|波兰|Poland|NL|🇳🇱|荷兰|Netherlands|SE|🇸🇪|瑞典|Sweden)
+custom_proxy_group=⚪ 欧洲链式`select`!!GROUPID=1!!(DE|🇩🇪|德国|Germany|FR|🇫🇷|法国|France|IT|🇮🇹|意大利|Italy|ES|🇪🇸|西班牙|Spain|GB|🇬🇧|英国|United Kingdom|UK|RU|🇷🇺|俄罗斯|Russia|PL|🇵🇱|波兰|Poland|NL|🇳🇱|荷兰|Netherlands|SE|🇸🇪|瑞典|Sweden)
+
+
+;custom_proxy_group=🟡 亚洲链式`relay`[]亚洲跳板`[]亚洲落地
+;custom_proxy_group=⚫ 美洲链式`relay`[]美洲跳板`[]美洲落地
+;custom_proxy_group=⚪ 欧洲链式`relay`[]欧洲跳板`[]欧洲落地
 
 custom_proxy_group=🐸 手动切换`select`.*
 custom_proxy_group=🏀 NBA`select`[]⭐ 香港故转`[]🔯 香港故转`[]🟡 亚洲链式`[]🕊️ 低倍率节点`[]🇨🇳 台湾节点`[]🐸 手动切换
@@ -72,9 +77,6 @@ custom_proxy_group=🍀 Google`select`[]🇺🇲 美国节点`[]⚫ 美洲链式
 custom_proxy_group=👨🏿‍💻 GitHub`select`[]⭐ 日本故转`[]🔯 香港故转`[]⭐ 香港故转`[]🕊️ 低倍率节点`[]🚀 节点选择`[]🐸 手动切换`[]DIRECT
 custom_proxy_group=🍎 Apple`select`[]DIRECT`[]🇭🇰 香港节点`[]🇯🇵 日本节点`[]🇸🇬 新加坡节点`[]🇺🇲 美国节点`[]🐸 手动切换`[]🚀 节点选择
 
-custom_proxy_group=🟡 亚洲链式`relay`[]亚洲跳板`[]亚洲落地
-custom_proxy_group=⚫ 美洲链式`relay`[]美洲跳板`[]美洲落地
-custom_proxy_group=⚪ 欧洲链式`relay`[]欧洲跳板`[]欧洲落地
 
 
 custom_proxy_group=🇭🇰 香港节点`select`(?=.*(HK|🇭🇰|香港|Hong Kong))^((?!(游戏|剩余|流量)).)*$
@@ -111,6 +113,6 @@ custom_proxy_group=🎯 全球直连`select`[]DIRECT`[]🚀 节点选择`[]🐸 
 ;启用自定义规则集
 
 
-
+clash_rule_base=https://gist.githubusercontent.com/veuiyigesirfdechku/d579cac6f0057a99d0d8ea2079d82885/raw/tunnel_yaml
 enable_rule_generator=true
 overwrite_original_rules=true
