@@ -139,27 +139,27 @@ proxy-groups:
   - {name: 🟣 低倍率均衡, type: load-balance, include-all: true, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 70, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)^(?!.*(JP|🇯🇵|日本|Japan)).*(0.(5|4|3|2|1|05|01))(?:倍|x)?"}
 
   - {name: 🇭🇰 香港节点, type: select, include-all: true, filter: "HK|🇭🇰|香港|Hong Kong"}
-  - {name: 🇸🇬 新加坡节点, type: select, include-all: true, filter: "SG|🇸🇬|新加坡|狮城|Singapore"}
-  - {name: 🇯🇵 日本节点, type: select, include-all: true, filter: "JP|🇯🇵|日本|Japan"}
-  - {name: 🇨🇳 台湾节点, type: select, include-all: true, filter: "TW|🇨🇳|🇹🇼|台湾|台灣|Taiwan"}
-  - {name: 🇺🇲 美国节点, type: select, include-all: true, filter: "美|us|unitedstates|united states"}
-  - {name: 🌍 欧洲节点, type: select, include-all: true, filter: "DE|🇩🇪|德国|Germany|FR|🇫🇷|法国|France|IT|🇮🇹|意大利|Italy|ES|🇪🇸|西班牙|Spain|GB|🇬🇧|英国|United Kingdom|UK|RU|🇷🇺|俄罗斯|Russia|PL|🇵🇱|波兰|Poland|NL|🇳🇱|荷兰|Netherlands|SE|🇸🇪|瑞典|Sweden"}
-
-
+  - {name: 🔯 香港故转, type: fallback, include-all: true, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 40, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)HK|🇭🇰|香港|Hong Kong"}
+  - {name: ⭐ 香港故转, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 70, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)HK|🇭🇰|香港|Hong Kong"}
   - {name: ♐ 香港均衡, type: load-balance, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 40, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)HK|🇭🇰|香港|Hong Kong"}
+
+  - {name: 🇸🇬 新加坡节点, type: select, include-all: true, filter: "SG|🇸🇬|新加坡|狮城|Singapore"}
+  - {name: 🔯 新加坡故转, type: fallback, include-all: true, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 50, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)SG|🇸🇬|新加坡|狮城|Singapore"}
+  - {name: ⭐ 新加坡故转, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 70, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)SG|🇸🇬|新加坡|狮城|Singapore"}
   - {name: ♌ 新加坡均衡, type: load-balance, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 40, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)SG|🇸🇬|新加坡|狮城|Singapore"}
+
+  - {name: 🇯🇵 日本节点, type: select, include-all: true, filter: "JP|🇯🇵|日本|Japan"}
+  - {name: 🔯 日本故转, type: fallback, include-all: true, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 50, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)JP|🇯🇵|日本|Japan"}
+  - {name: ⭐ 日本故转, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 70, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)JP|🇯🇵|日本|Japan"}
   - {name: 🍙 日本均衡, type: load-balance, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 40, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)JP|🇯🇵|日本|Japan"}
+
+  - {name: 🇺🇲 美国节点, type: select, include-all: true, filter: "美|us|unitedstates|united states"}
+  - {name: 🔯 美国故转, type: fallback, include-all: true, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 80, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)US|USA|美国|🇺🇸|美國|United States"}
+  - {name: ⭐ 美国故转, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 100, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)US|USA|美国|🇺🇸|美國|United States"}
   - {name: 🗽 美国均衡, type: load-balance, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 50, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)US|USA|美国|🇺🇸|美國|United States"}
 
-  - {name: 🔯 香港故转, type: fallback, include-all: true, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 40, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)HK|🇭🇰|香港|Hong Kong"}
-  - {name: 🔯 新加坡故转, type: fallback, include-all: true, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 50, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)SG|🇸🇬|新加坡|狮城|Singapore"}
-  - {name: 🔯 日本故转, type: fallback, include-all: true, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 50, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)JP|🇯🇵|日本|Japan"}
-  - {name: 🔯 美国故转, type: fallback, include-all: true, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 80, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)US|USA|美国|🇺🇸|美國|United States"}
-
-  - {name: ⭐ 香港故转, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 70, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)HK|🇭🇰|香港|Hong Kong"}
-  - {name: ⭐ 新加坡故转, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 70, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)SG|🇸🇬|新加坡|狮城|Singapore"}
-  - {name: ⭐ 日本故转, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 70, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)JP|🇯🇵|日本|Japan"}
-  - {name: ⭐ 美国故转, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 100, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)US|USA|美国|🇺🇸|美國|United States"}
+  - {name: 🇨🇳 台湾节点, type: select, include-all: true, filter: "TW|🇨🇳|🇹🇼|台湾|台灣|Taiwan"}
+  - {name: 🌍 欧洲节点, type: select, include-all: true, filter: "DE|🇩🇪|德国|Germany|FR|🇫🇷|法国|France|IT|🇮🇹|意大利|Italy|ES|🇪🇸|西班牙|Spain|GB|🇬🇧|英国|United Kingdom|UK|RU|🇷🇺|俄罗斯|Russia|PL|🇵🇱|波兰|Poland|NL|🇳🇱|荷兰|Netherlands|SE|🇸🇪|瑞典|Sweden"}
 
   - {name: 📢 FCM, type: select, proxies: [🔯 香港故转, 🚀 节点选择, DIRECT, 🔯 美国故转, 🔯 新加坡故转, 🐸 手动切换]}
   - {name: 🎞️ 国内媒体, type: select, proxies: [DIRECT, 🚀 节点选择, ⚫ 美洲链式, 🟡 亚洲链式, 🐸 手动切换]}
