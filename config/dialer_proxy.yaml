@@ -14,7 +14,7 @@ proxy-providers:
   亚洲落地:
     type: http
     url: ""
-    path: ./proxies/vps.yaml
+    path: ./proxies/aisa_vps.yaml
     interval: 86400
     override:
       udp: true
@@ -27,7 +27,7 @@ proxy-providers:
   美洲落地:
     type: http
     url: ""
-    path: ./proxies/vps.yaml
+    path: ./proxies/aemerica_vps.yaml
     interval: 86400
     override:
       udp: true
