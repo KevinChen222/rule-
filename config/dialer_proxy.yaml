@@ -69,6 +69,15 @@ profile:
   store-selected: true
   store-fake-ip: true
 
+geox-url:               
+  geoip: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat
+  geosite: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat
+  mmdb: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb
+  asn: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb
+geo-auto-update: true   
+geo-update-interval: 24 
+
+
 sniffer:
   enable: true
   parse-pure-ip: true
@@ -337,4 +346,3 @@ rules:
   - RULE-SET,cn_domain,🎯 全球直连
   - RULE-SET,cnip,🎯 全球直连
   - MATCH,🐟 漏网之鱼
-  
