@@ -187,7 +187,7 @@ rule-providers:
     interval: 86400
   emby:
     <<: *anchor_rule_providers_classical_text
-    url: https://gist.githubusercontent.com/KevinChen222/76f958b18d5ad033f79aba87c8beffaf/raw/emby.list
+    url: https://raw.githubusercontent.com/KevinChen222/rule-/refs/heads/main/emby.list
     path: ./rule_providers/emby.list
   nba: 
     <<: *anchor_rule_providers_classical_text
