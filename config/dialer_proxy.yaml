@@ -107,10 +107,10 @@ dns:
   ipv6: false
   respect-rules: true
   listen: 0.0.0.0:1053
-  fake-ip-range: 198.18.0.1/16
-  enhanced-mode: fake-ip
-  fake-ip-filter-mode: blacklist
-  fake-ip-filter: ['rule-set:private_domain,fakeip-filter,cn_domain,GoogleCN,SteamCN,Apple,LocalAreaNetwork']
+  # fake-ip-range: 198.18.0.1/16
+  enhanced-mode: redir-host
+  # fake-ip-filter-mode: blacklist
+  # fake-ip-filter: ["rule-set:cn_domain,GameDownloadCN,GameDownload,Apple"]
   default-nameserver:
     - 223.5.5.5
     - 119.29.29.29
@@ -118,10 +118,10 @@ dns:
     - 223.5.5.5
     - 119.29.29.29
   nameserver-policy:
-    "rule-set:cn_domain":
+    "rule-set:cn_domain,GameDownloadCN,private":
       - 223.5.5.5
       - 119.29.29.29
-    "rule-set:geolocation-!cn":
+    "rule-set:Microsoft,geolocation-!cn":
       - "https://1.1.1.1/dns-query"
       - "https://8.8.8.8/dns-query"
   nameserver:
@@ -150,7 +150,7 @@ proxy-groups:
   - {name: 📹 YouTube, type: select, proxies: [🔴 低倍率故转, ⭐ 香港故转, 🟣 低倍率均衡, ⚫ 美洲链式, 🕊️ 低倍率节点, 🌐 其他地区, ⭐ 美国故转, 🔯 香港故转, 🔯 美国故转, 🔯 新加坡故转, 🐸 手动切换]}
   - {name: 🎮 游戏平台, type: select, proxies: [DIRECT, 🚀 节点选择, 🔯 香港故转, 🔯 美国故转, 🔯 新加坡故转, ⭐ 香港故转, ⭐ 美国故转, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 新加坡节点, 🐸 手动切换]}
   - {name: 🌍 国外媒体, type: select, proxies: [🟡 亚洲链式, ⭐ 新加坡故转, 🔯 新加坡故转, 🕊️ 低倍率节点, 🌐 其他地区, 🐸 手动切换, DIRECT]}
-  - {name: 🤖 AI, type: select, proxies: [🚀 节点选择, 🟡 亚洲链式, 🔯 美国故转, 🇺🇲 美国节点, ⚫ 美洲链式, 🇯🇵 日本节点]}
+  - {name: 🤖 AI, type: select, proxies: [🚀 节点选择, 🏡 家宽直连, 🟡 亚洲链式, 🔯 美国故转, 🇺🇲 美国节点, ⚫ 美洲链式, 🇯🇵 日本节点]}
   - {name: 🪟 Microsoft, type: select, proxies: [DIRECT, 🕊️ 低倍率节点, 🚀 节点选择, 🔯 美国故转, 🔯 香港故转, 🐸 手动切换]}
   - {name: 🍀 Google, type: select, proxies: [🚀 节点选择, ⚫ 美洲链式, 🇺🇲 美国节点, 🟡 亚洲链式, 🔯 香港故转, 🔯 美国故转, 🔯 新加坡故转, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 新加坡节点, 🐸 手动切换, DIRECT]}
   - {name: 👨🏿‍💻 GitHub, type: select, proxies: [🔯 香港故转, ⭐ 日本故转, ⭐ 香港故转, 🕊️ 低倍率节点, 🚀 节点选择, 🐸 手动切换, DIRECT]}
@@ -191,23 +191,19 @@ proxy-groups:
   - {name: 🎯 全球直连, type: select, proxies: [DIRECT, 🚀 节点选择]}
 
 
-anchor_rule_providers_classical_text: &anchor_rule_providers_classical_text {type: http, behavior: classical, interval: 86400, format: text}  # 经典规则集配置_text，
+anchor_rule_providers_classical_mrs: &anchor_rule_providers_classical_mrs {type: http, behavior: classical, interval: 86400, format: mrs}     # 经典规则集配置_mrs
+anchor_rule_providers_classical_text: &anchor_rule_providers_classical_text {type: http, behavior: classical, interval: 86400, format: text}  # 经典规则集配置_text，即“.list”
+anchor_rule_providers_classical_yaml: &anchor_rule_providers_classical_yaml {type: http, behavior: classical, interval: 86400, format: yaml}  # 经典规则集配置_yaml
+
+anchor_rule_providers_domain_mrs: &anchor_rule_providers_domain_mrs {type: http, behavior: domain, interval: 86400, format: mrs}              # 域名规则集配置_mrs
+anchor_rule_providers_domain_text: &anchor_rule_providers_domain_text {type: http, behavior: domain, interval: 86400, format: text}           # 域名规则集配置_text，即“.list”
+anchor_rule_providers_domain_yaml: &anchor_rule_providers_domain_yaml {type: http, behavior: domain, interval: 86400, format: yaml}           # 域名规则集配置_yaml
+
+anchor_rule_providers_ipcidr_mrs: &anchor_rule_providers_ipcidr_mrs {type: http, behavior: ipcidr, interval: 86400, format: mrs}              # IP-CIDR 规则集配置_mrs
+anchor_rule_providers_ipcidr_text: &anchor_rule_providers_ipcidr_text {type: http, behavior: ipcidr, interval: 86400, format: text}           # IP-CIDR 规则集配置_text，即“.list”
+anchor_rule_providers_ipcidr_yaml: &anchor_rule_providers_ipcidr_yaml {type: http, behavior: ipcidr, interval: 86400, format: yaml}           # IP-CIDR 规则集配置_yaml
 
 rule-providers:
-  private_domain:
-    type: http
-    behavior: classical
-    format: text
-    path: ./rules/private_domain.list
-    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/private.list"
-    interval: 86400
-  fakeip-filter:
-    type: http
-    behavior: classical
-    format: text
-    path: ./rules/fakeip-filter.list
-    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter-lite.list"
-    interval: 86400
   emby:
     <<: *anchor_rule_providers_classical_text
     url: https://raw.githubusercontent.com/KevinChen222/rule-/refs/heads/main/emby.list
@@ -220,18 +216,14 @@ rule-providers:
     <<: *anchor_rule_providers_classical_text
     url: https://raw.githubusercontent.com/KevinChen222/rule-/refs/heads/main/DirectKevin.list
     path: ./rule_providers/directkevin.list
-  directqichiyu: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/qichiyuhub/rule/master/Direct.list
-    path: ./rule_providers/directqichiyu.list
   telegram: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Telegram/Telegram.list
-    path: ./rule_providers/telegram.list
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram_No_Resolve.yaml
+    path: ./rule_providers/Telegram.yaml
   youtube: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/YouTube/YouTube.list
-    path: ./rule_providers/youtube.list
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube_No_Resolve.yaml
+    path: ./rule_providers/YouTube.yaml
   proxyqichiyu: 
     <<: *anchor_rule_providers_classical_text
     url: https://raw.githubusercontent.com/qichiyuhub/rule/master/ProxyLite.list
@@ -240,144 +232,123 @@ rule-providers:
     <<: *anchor_rule_providers_classical_text
     url: https://raw.githubusercontent.com/DustinWin/domain-list-custom/refs/heads/domains/ai.list
     path: ./rule_providers/ai.list
-  LocalAreaNetwork: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/LocalAreaNetwork.list
-    path: ./rule_providers/LocalAreaNetwork.list
-  UnBan: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/UnBan.list
-    path: ./rule_providers/UnBan.list
-  FCM: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GoogleFCM/GoogleFCM.list
-    path: ./rule_providers/FCM.list
-  GoogleCN: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/GoogleCN.list
-    path: ./rule_providers/GoogleCN.list
-  SteamCN: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/SteamCN.list
-    path: ./rule_providers/SteamCN.list
+  private: 
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Lan/Lan_No_Resolve.yaml
+    path: ./rule_providers/private.yaml
+  FCM:
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GoogleFCM/GoogleFCM_No_Resolve.yaml
+    path: ./rule_providers/GoogleFCM.yaml
   GitHub: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub.list
-    path: ./rule_providers/GitHub.list
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub_No_Resolve.yaml
+    path: ./rule_providers/GitHub.yaml
   Google: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.list
-    path: ./rule_providers/Google.list
-  Microsoft: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Microsoft.list
-    path: ./rule_providers/Microsoft.list
-  Apple: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Apple.list
-    path: ./rule_providers/Apple.list
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google_No_Resolve.yaml
+    path: ./rule_providers/Google.yaml
+  Microsoft:
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft_No_Resolve.yaml
+    path: ./rule_providers/Microsoft.yaml
+  Apple:
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Classical_No_Resolve.yaml
+    path: ./rule_providers/Apple.yaml
+  GameDownloadCN:
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/GameDownloadCN/GameDownloadCN_No_Resolve.yaml
+    path: ./rule_providers/GameDownloadCN.yaml
+  GameDownload:
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/GameDownload/GameDownload_No_Resolve.yaml
+    path: ./rule_providers/GameDownload.yaml
+  Steam:
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam_No_Resolve.yaml
+    path: ./rule_providers/Steam.yaml
   Epic: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Epic.list
-    path: ./rule_providers/Epic.list
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Epic/Epic_No_Resolve.yaml
+    path: ./rule_providers/Epic.yaml
   Origin: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Origin.list
-    path: ./rule_providers/Origin.list
-  Sony: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Sony.list
-    path: ./rule_providers/Sony.list
-  Steam: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Steam.list
-    path: ./rule_providers/Steam.list
-  Nintendo: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Nintendo.list
-    path: ./rule_providers/Nintendo.list
-  ChinaMedia: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMedia/ChinaMedia.list
-    path: ./rule_providers/ChinaMedia.list
-  TikTok: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/TikTok/TikTok.list
-    path: ./rule_providers/TikTok.list
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Origin/Origin_No_Resolve.yaml
+    path: ./rule_providers/Origin.yaml
+  Sony:
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Sony/Sony_No_Resolve.yaml
+    path: ./rule_providers/Sony.yaml
+  Nintendo:
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Nintendo/Nintendo_No_Resolve.yaml
+    path: ./rule_providers/Nintendo.yaml
+  Xbox:
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Xbox/Xbox_No_Resolve.yaml
+    path: ./rule_providers/Xbox.yaml
+  ChinaMedia:
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMedia/ChinaMedia_No_Resolve.yaml
+    path: ./rule_providers/ChinaMedia.yaml
+  TikTok:
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok_No_Resolve.yaml
+    path: ./rule_providers/TikTok.yaml
   max: 
     <<: *anchor_rule_providers_classical_text
     url: https://raw.githubusercontent.com/KevinChen222/rule-/refs/heads/main/max.list
     path: ./rule_providers/max.list
   GlobalMedia: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/GlobalMedia/GlobalMedia.list
-    path: ./rule_providers/GlobalMedia.list
-  ProxyLite: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/ProxyLite/ProxyLite.list
-    path: ./rule_providers/ProxyLite.list
-  Download: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Download.list
-    path: ./rule_providers/Download.list
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia_Classical_No_Resolve.yaml
+    path: ./rule_providers/GlobalMedia.yaml
+  Proxy:
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Proxy/Proxy_Classical_No_Resolve.yaml
+    path: ./rule_providers/Proxy.yaml
   geolocation-!cn:
-    type: http
-    behavior: domain
-    format: mrs
+    <<: *anchor_rule_providers_domain_mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs
     path: ./rules/geolocation-!cn.mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"
-    interval: 86400
   cn_domain: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China.list
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China_Classical_No_Resolve.yaml
     path: ./rule_providers/cn_domain.list
-  privateip:
-    type: http
-    behavior: ipcidr
-    format: mrs
-    path: ./rules/privateip.mrs
-    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/privateip.mrs"
-    interval: 86400
   cnip:
-    type: http
-    behavior: ipcidr
-    format: mrs
-    path: ./rules/cnip.mrs
-    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/cnip.mrs"
-    interval: 86400
+    <<: *anchor_rule_providers_classical_yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaIPs/ChinaIPs_Classical_No_Resolve.yaml
+    path: ./rule_providers/ChinaIPs.yaml
 
 rules:
-  - RULE-SET,private_domain,🎯 全球直连
   - RULE-SET,emby,📺 emby
   - RULE-SET,nba,🏀 NBA
   - RULE-SET,directkevin,🎯 全球直连
-  - RULE-SET,directqichiyu,🎯 全球直连
   - RULE-SET,telegram,📲 Telegram
   - RULE-SET,youtube,📹 YouTube
   - RULE-SET,proxyqichiyu,🚀 节点选择
   - RULE-SET,ai,🤖 AI
-  - RULE-SET,LocalAreaNetwork,🎯 全球直连
-  - RULE-SET,UnBan,🎯 全球直连
+  - RULE-SET,private,🎯 全球直连
   - RULE-SET,FCM,📢 FCM
-  - RULE-SET,GoogleCN,🎯 全球直连
-  - RULE-SET,SteamCN,🎯 全球直连
+  - RULE-SET,GameDownloadCN,🎯 全球直连
   - RULE-SET,GitHub,👨🏿‍💻 GitHub
   - RULE-SET,Google,🍀 Google
   - RULE-SET,Microsoft,🪟 Microsoft
   - RULE-SET,Apple,🍎 Apple
+  - RULE-SET,Steam,🎮 游戏平台
+  - RULE-SET,GameDownload,🎮 游戏平台  
   - RULE-SET,Epic,🎮 游戏平台
   - RULE-SET,Origin,🎮 游戏平台
   - RULE-SET,Sony,🎮 游戏平台
-  - RULE-SET,Steam,🎮 游戏平台
+  - RULE-SET,Xbox,🎮 游戏平台
   - RULE-SET,Nintendo,🎮 游戏平台
   - RULE-SET,ChinaMedia,🎞️ 国内媒体
   - RULE-SET,TikTok,🌍 国外媒体
   - RULE-SET,max,🌍 国外媒体
   - RULE-SET,GlobalMedia,🌍 国外媒体
-  - RULE-SET,ProxyLite,🚀 节点选择
-  - RULE-SET,Download,🎯 全球直连
+  - RULE-SET,Proxy,🚀 节点选择
   - RULE-SET,cn_domain,🎯 全球直连
-  - RULE-SET,privateip,🎯 全球直连
   - RULE-SET,cnip,🎯 全球直连
   - MATCH,🐟 漏网之鱼
   
