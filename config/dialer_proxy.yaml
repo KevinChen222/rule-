@@ -55,7 +55,7 @@ global-ua: clash.meta
 
 mode: rule
 log-level: info
-ipv6: true
+ipv6: false
 allow-lan: true
 mixed-port: 7890
 unified-delay: true
@@ -97,7 +97,6 @@ tun:
   device: mihomo
   strict-route: true
 
-
 hosts:
   doh.pub: [1.12.12.12, 120.53.53.53]
   dns.alidns.com: [223.5.5.5, 223.6.6.6]
@@ -105,8 +104,8 @@ hosts:
 
 dns:
   enable: true
-  cache-algorithm: arc
-  ipv6: true
+  ipv6: false
+  respect-rules: true
   listen: 0.0.0.0:1053
   fake-ip-range: 198.18.0.1/16
   enhanced-mode: fake-ip
@@ -119,7 +118,7 @@ dns:
     - 223.5.5.5
     - 119.29.29.29
   nameserver-policy:
-    "rule-set:private_domain,cn_domain":
+    "rule-set:cn_domain":
       - 223.5.5.5
       - 119.29.29.29
     "rule-set:geolocation-!cn":
@@ -135,27 +134,28 @@ dns:
 
 
 proxy-groups:
+  - {name: 亚洲跳板, type: select, proxies: [🦁 狮城自动选择, ♌ 新加坡均衡, ♐ 香港均衡, 🍙 日本均衡, 🔯 香港故转, 🔯 新加坡故转, ⭐ 香港故转, 🟣 低倍率均衡, 🔴 低倍率故转, 🐸 手动切换, DIRECT]}
+  - {name: 🟡 亚洲链式, type: select, use: [亚洲落地]}
+  - {name: 美洲跳板, type: select, proxies: [🏹 美国自动选择, 🗽 美国均衡, 🟣 低倍率均衡, 🔯 日本故转, 🔯 美国故转, ♐ 香港均衡, 🕊️ 低倍率节点, 🔴 低倍率故转, ⭐ 美国故转, 🐸 手动切换, DIRECT]}
+  - {name: ⚫ 美洲链式, type: select, use: [美洲落地]}            
+
   - {name: 🐸 手动切换, type: select, include-all: true}
   - {name: 🏀 NBA, type: select, proxies: [⭐ 香港故转, 🔯 香港故转, 🟡 亚洲链式, 🕊️ 低倍率节点, 🇨🇳 台湾节点, 🐸 手动切换]}
-  - {name: 📺 emby, type: select, proxies: [🏡 家宽直连, ⚫ 美洲链式, 🟡 亚洲链式, 🔴 低倍率故转, 🟣 低倍率均衡, 🕊️ 低倍率节点, DIRECT, ⭐ 美国故转, 🔯 美国故转, 🇺🇲 美国节点, ⭐ 香港故转, 🐸 手动切换]}
+  - {name: 📺 emby, type: select, proxies: [🏡 家宽直连, ⚫ 美洲链式, 🟡 亚洲链式, 🔴 低倍率故转, 🟣 低倍率均衡, 🕊️ 低倍率节点, DIRECT, ⭐ 美国故转, 🌍 欧洲节点, 🔯 美国故转, 🇺🇲 美国节点, ⭐ 香港故转, 🐸 手动切换]}
   - {name: 🏡 家宽直连, type: select, include-all: true, filter: "(?i)直连|家庭|Home|家宽"}
   - {name: 🐟 漏网之鱼, type: select, proxies: [🇭🇰 香港节点, 🟡 亚洲链式, DIRECT, 🕊️ 低倍率节点, 🔴 低倍率故转, 🟣 低倍率均衡, ⚫ 美洲链式, 🏡 家宽直连, 🇨🇳 台湾节点, 🌐 其他地区, 🚀 节点选择, 🇯🇵 日本节点, 🇸🇬 新加坡节点, 🐸 手动切换]}
   - {name: 📲 Telegram, type: select, proxies: [🟡 亚洲链式, 🇸🇬 新加坡节点, 🔯 新加坡故转, 🇭🇰 香港节点, 🚀 节点选择, 🔯 香港故转, 🔯 美国故转, ⭐ 香港故转, ⭐ 美国故转, 🇯🇵 日本节点, 🐸 手动切换]}
+  - {name: 🌐 其他地区, type: select, include-all: true, filter: "(?i)^(?!.*(HK|🇭🇰|香港|Hong Kong|TW|🇨🇳|🇹🇼|台湾|台灣|Taiwan|SG|🇸🇬|新加坡|狮城|Singapore|JP|🇯🇵|日本|Japan|US|USA|美国|🇺🇸|美國|United States))"}
   - {name: 🚀 节点选择, type: select, proxies: [⚫ 美洲链式, 🇺🇲 美国节点, 🟡 亚洲链式, 🔯 美国故转, 🔯 香港故转, 🐸 手动切换, 🔯 新加坡故转, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 新加坡节点, 🌐 其他地区, 🏡 家宽直连, 🕊️ 低倍率节点, DIRECT]}
   - {name: 📹 YouTube, type: select, proxies: [🔴 低倍率故转, ⭐ 香港故转, 🟣 低倍率均衡, ⚫ 美洲链式, 🕊️ 低倍率节点, 🌐 其他地区, ⭐ 美国故转, 🔯 香港故转, 🔯 美国故转, 🔯 新加坡故转, 🐸 手动切换]}
-  - {name: 🎮 游戏平台, type: select, proxies: [🎯 全球直连, 🚀 节点选择, 🔯 香港故转, 🔯 美国故转, 🔯 新加坡故转, ⭐ 香港故转, ⭐ 美国故转, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 新加坡节点, 🐸 手动切换]}
+  - {name: 🎮 游戏平台, type: select, proxies: [DIRECT, 🚀 节点选择, 🔯 香港故转, 🔯 美国故转, 🔯 新加坡故转, ⭐ 香港故转, ⭐ 美国故转, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 新加坡节点, 🐸 手动切换]}
   - {name: 🌍 国外媒体, type: select, proxies: [🟡 亚洲链式, ⭐ 新加坡故转, 🔯 新加坡故转, 🕊️ 低倍率节点, 🌐 其他地区, 🐸 手动切换, DIRECT]}
   - {name: 🤖 AI, type: select, proxies: [🚀 节点选择, 🟡 亚洲链式, 🔯 美国故转, 🇺🇲 美国节点, ⚫ 美洲链式, 🇯🇵 日本节点]}
-  - {name: 🪟 Microsoft, type: select, proxies: [🎯 全球直连, 🕊️ 低倍率节点, 🚀 节点选择, 🔯 美国故转, 🔯 香港故转, 🐸 手动切换]}
+  - {name: 🪟 Microsoft, type: select, proxies: [DIRECT, 🕊️ 低倍率节点, 🚀 节点选择, 🔯 美国故转, 🔯 香港故转, 🐸 手动切换]}
   - {name: 🍀 Google, type: select, proxies: [🚀 节点选择, ⚫ 美洲链式, 🇺🇲 美国节点, 🟡 亚洲链式, 🔯 香港故转, 🔯 美国故转, 🔯 新加坡故转, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 新加坡节点, 🐸 手动切换, DIRECT]}
   - {name: 👨🏿‍💻 GitHub, type: select, proxies: [🔯 香港故转, ⭐ 日本故转, ⭐ 香港故转, 🕊️ 低倍率节点, 🚀 节点选择, 🐸 手动切换, DIRECT]}
-  - {name: 🍎 Apple, type: select, proxies: [🎯 全球直连, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 新加坡节点, 🇺🇲 美国节点, 🐸 手动切换, 🚀 节点选择]}
-  - {name: ♻️ Speedtest, type: select, proxies: [🎯 全球直连, ⚫ 美洲链式, 🟡 亚洲链式, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 新加坡节点, 🇺🇲 美国节点, 🐸 手动切换, 🚀 节点选择]}
-
-  - {name: 亚洲跳板, type: select, proxies: [🏹 狮城自动选择, 🏹 香港自动选择, ♐ 新加坡均衡, ♐ 香港均衡, ♐ 日本均衡, 🔯 香港故转, 🔯 新加坡故转, ⭐ 香港故转, 🟣 低倍率均衡, 🔴 低倍率故转, 🐸 手动切换, DIRECT]}
-  - {name: 🟡 亚洲链式, type: select, use: [亚洲落地]}
-  - {name: 美洲跳板, type: select, proxies: [🏹 美国自动选择, 🏹 香港自动选择, ♐ 美国均衡, 🟣 低倍率均衡, 🔯 日本故转, 🔯 美国故转, ♐ 香港均衡, 🕊️ 低倍率节点, 🔴 低倍率故转, ⭐ 美国故转, 🐸 手动切换, DIRECT]}
-  - {name: ⚫ 美洲链式, type: select, use: [美洲落地]} 
+  - {name: 🍎 Apple, type: select, proxies: [DIRECT, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 新加坡节点, 🇺🇲 美国节点, 🐸 手动切换, 🚀 节点选择]}
+  - {name: 📢 FCM, type: select, proxies: [🔯 香港故转, 🚀 节点选择, DIRECT, 🔯 美国故转, 🔯 新加坡故转, 🐸 手动切换]}
 
   - {name: 🕊️ 低倍率节点, type: select, include-all: true, filter: "(0.(5|4|3|2|1|05|01))(?:倍|x)?"}
   - {name: 🔴 低倍率故转, type: fallback, include-all: true, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 70, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)^(?!.*(JP|🇯🇵|日本|Japan)).*(0.(5|4|3|2|1|05|01))(?:倍|x)?"}
@@ -166,44 +166,47 @@ proxy-groups:
   - {name: 🇯🇵 日本节点, type: select, include-all: true, filter: "JP|🇯🇵|日本|Japan"}
   - {name: 🇨🇳 台湾节点, type: select, include-all: true, filter: "TW|🇨🇳|🇹🇼|台湾|台灣|Taiwan"}
   - {name: 🇺🇲 美国节点, type: select, include-all: true, filter: "美|us|unitedstates|united states"}
-  - {name: 🌐 其他地区, type: select, include-all: true, filter: "(?i)^(?!.*(HK|🇭🇰|香港|Hong Kong|TW|🇨🇳|🇹🇼|台湾|台灣|Taiwan|SG|🇸🇬|新加坡|狮城|Singapore|JP|🇯🇵|日本|Japan|US|USA|美国|🇺🇸|美國|United States))"}
+  - {name: 🌍 欧洲节点, type: select, include-all: true, filter: "DE|🇩🇪|德国|Germany|FR|🇫🇷|法国|France|IT|🇮🇹|意大利|Italy|ES|🇪🇸|西班牙|Spain|GB|🇬🇧|英国|United Kingdom|UK|RU|🇷🇺|俄罗斯|Russia|PL|🇵🇱|波兰|Poland|NL|🇳🇱|荷兰|Netherlands|SE|🇸🇪|瑞典|Sweden"}
 
 
-  - {name: ♐ 香港均衡, type: load-balance, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 40, timeout: 3000, max-failed-times: 5, lazy: true, filter: "(?i)HK|🇭🇰|香港|Hong Kong"}
-  - {name: ♐ 新加坡均衡, type: load-balance, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 40, timeout: 3000, max-failed-times: 5, lazy: true, filter: "(?i)SG|🇸🇬|新加坡|狮城|Singapore"}
-  - {name: ♐ 日本均衡, type: load-balance, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 40, timeout: 3000, max-failed-times: 5, lazy: true, filter: "(?i)JP|🇯🇵|日本|Japan"}
-  - {name: ♐ 美国均衡, type: load-balance, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 50, timeout: 3000, max-failed-times: 5, lazy: true, filter: "(?i)US|USA|美国|🇺🇸|美國|United States"}
+  - {name: ♐ 香港均衡, type: load-balance, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 40, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)HK|🇭🇰|香港|Hong Kong"}
+  - {name: ♌ 新加坡均衡, type: load-balance, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 40, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)SG|🇸🇬|新加坡|狮城|Singapore"}
+  - {name: 🍙 日本均衡, type: load-balance, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 40, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)JP|🇯🇵|日本|Japan"}
+  - {name: 🗽 美国均衡, type: load-balance, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 50, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)US|USA|美国|🇺🇸|美國|United States"}
 
-  - {name: 🔯 香港故转, type: fallback, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 40, timeout: 3000, max-failed-times: 5, lazy: true, filter: "(?i)HK|🇭🇰|香港|Hong Kong"}
-  - {name: 🔯 新加坡故转, type: fallback, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 50, timeout: 3000, max-failed-times: 5, lazy: true, filter: "(?i)SG|🇸🇬|新加坡|狮城|Singapore"}
-  - {name: 🔯 日本故转, type: fallback, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 50, timeout: 3000, max-failed-times: 5, lazy: true, filter: "(?i)JP|🇯🇵|日本|Japan"}
-  - {name: 🔯 美国故转, type: fallback, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 80, timeout: 3000, max-failed-times: 5, lazy: true, filter: "(?i)US|USA|美国|🇺🇸|美國|United States"}
+  - {name: 🔯 香港故转, type: fallback, include-all: true, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 40, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)HK|🇭🇰|香港|Hong Kong"}
+  - {name: 🔯 新加坡故转, type: fallback, include-all: true, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 50, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)SG|🇸🇬|新加坡|狮城|Singapore"}
+  - {name: 🔯 日本故转, type: fallback, include-all: true, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 50, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)JP|🇯🇵|日本|Japan"}
+  - {name: 🔯 美国故转, type: fallback, include-all: true, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 80, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)US|USA|美国|🇺🇸|美國|United States"}
 
-  - {name: ⭐ 香港故转, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 70, timeout: 3000, max-failed-times: 5, lazy: true, filter: "(?i)HK|🇭🇰|香港|Hong Kong"}
-  - {name: ⭐ 新加坡故转, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 70, timeout: 3000, max-failed-times: 5, lazy: true, filter: "(?i)SG|🇸🇬|新加坡|狮城|Singapore"}
-  - {name: ⭐ 日本故转, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 70, timeout: 3000, max-failed-times: 5, lazy: true, filter: "(?i)JP|🇯🇵|日本|Japan"}
-  - {name: ⭐ 美国故转, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 100, timeout: 3000, max-failed-times: 5, lazy: true, filter: "(?i)US|USA|美国|🇺🇸|美國|United States"}
+  - {name: ⭐ 香港故转, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 70, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)HK|🇭🇰|香港|Hong Kong"}
+  - {name: ⭐ 新加坡故转, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 70, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)SG|🇸🇬|新加坡|狮城|Singapore"}
+  - {name: ⭐ 日本故转, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 70, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)JP|🇯🇵|日本|Japan"}
+  - {name: ⭐ 美国故转, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 100, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)US|USA|美国|🇺🇸|美國|United States"}
 
-  - {name: 🏹 狮城自动选择, type: url-test, include-all: true, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 10, timeout: 3000, max-failed-times: 5, lazy: true, filter: "(?i)^(?!.*(家宽|2x|0.2x)).*(SG|🇸🇬|新加坡|狮城|Singapore)"}
-  - {name: 🏹 美国自动选择, type: url-test, include-all: true, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 20, timeout: 3000, max-failed-times: 5, lazy: true, filter: "(?i)^(?!.*(家宽|2x|0.2x)).*(US|USA|美国|🇺🇸|美國|United States)"}
-  - {name: 🏹 香港自动选择, type: url-test, include-all: true, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 10, timeout: 3000, max-failed-times: 5, lazy: true, filter: "(?i)^(?!.*(家宽|2x|0.2x)).*(HK|🇭🇰|香港|Hong Kong)"}
+  - {name: 🦁 狮城自动选择, type: url-test, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 10, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)^(?!.*(家宽|2x|0.2x)).*(SG|🇸🇬|新加坡|狮城|Singapore)"}
+  - {name: 🏹 美国自动选择, type: url-test, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 20, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)^(?!.*(家宽|2x|0.2x)).*(US|USA|美国|🇺🇸|美國|United States)"}
 
-  - {name: 📢 FCM, type: select, proxies: [🔯 香港故转, 🚀 节点选择, 🎯 全球直连, 🔯 美国故转, 🔯 新加坡故转, 🐸 手动切换]}
-  - {name: 🎞️ 国内媒体, type: select, proxies: [🎯 全球直连, 🚀 节点选择, ⚫ 美洲链式, 🟡 亚洲链式, 🐸 手动切换]}
+  - {name: 🎞️ 国内媒体, type: select, proxies: [DIRECT, 🚀 节点选择, ⚫ 美洲链式, 🟡 亚洲链式, 🐸 手动切换]}
   - {name: 🎯 全球直连, type: select, proxies: [DIRECT, 🚀 节点选择]}
 
 
 anchor_rule_providers_classical_text: &anchor_rule_providers_classical_text {type: http, behavior: classical, interval: 86400, format: text}  # 经典规则集配置_text，
-domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
 
 rule-providers:
-  private_domain: {!!merge <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
+  private_domain:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rules/private_domain.list
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/private.list"
+    interval: 86400
   fakeip-filter:
     type: http
-    behavior: domain
-    format: mrs
-    path: ./rules/fakeip-filter.mrs
-    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter-lite.mrs"
+    behavior: classical
+    format: text
+    path: ./rules/fakeip-filter.list
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter-lite.list"
     interval: 86400
   emby:
     <<: *anchor_rule_providers_classical_text
@@ -217,6 +220,10 @@ rule-providers:
     <<: *anchor_rule_providers_classical_text
     url: https://raw.githubusercontent.com/KevinChen222/rule-/refs/heads/main/DirectKevin.list
     path: ./rule_providers/directkevin.list
+  directqichiyu: 
+    <<: *anchor_rule_providers_classical_text
+    url: https://raw.githubusercontent.com/qichiyuhub/rule/master/Direct.list
+    path: ./rule_providers/directqichiyu.list
   telegram: 
     <<: *anchor_rule_providers_classical_text
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Telegram/Telegram.list
@@ -225,6 +232,10 @@ rule-providers:
     <<: *anchor_rule_providers_classical_text
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/YouTube/YouTube.list
     path: ./rule_providers/youtube.list
+  proxyqichiyu: 
+    <<: *anchor_rule_providers_classical_text
+    url: https://raw.githubusercontent.com/qichiyuhub/rule/master/ProxyLite.list
+    path: ./rule_providers/proxyqichiyu.list
   ai: 
     <<: *anchor_rule_providers_classical_text
     url: https://raw.githubusercontent.com/DustinWin/domain-list-custom/refs/heads/domains/ai.list
@@ -265,10 +276,6 @@ rule-providers:
     <<: *anchor_rule_providers_classical_text
     url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Apple.list
     path: ./rule_providers/Apple.list
-  Speedtest: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Speedtest/Speedtest.list
-    path: ./rule_providers/Speedtest.list
   Epic: 
     <<: *anchor_rule_providers_classical_text
     url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Epic.list
@@ -313,13 +320,24 @@ rule-providers:
     <<: *anchor_rule_providers_classical_text
     url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Download.list
     path: ./rule_providers/Download.list
-
-  geolocation-!cn: {!!merge <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"}
-
+  geolocation-!cn:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./rules/geolocation-!cn.mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"
+    interval: 86400
   cn_domain: 
     <<: *anchor_rule_providers_classical_text
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China.list
     path: ./rule_providers/cn_domain.list
+  privateip:
+    type: http
+    behavior: ipcidr
+    format: mrs
+    path: ./rules/privateip.mrs
+    url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/privateip.mrs"
+    interval: 86400
   cnip:
     type: http
     behavior: ipcidr
@@ -333,8 +351,10 @@ rules:
   - RULE-SET,emby,📺 emby
   - RULE-SET,nba,🏀 NBA
   - RULE-SET,directkevin,🎯 全球直连
+  - RULE-SET,directqichiyu,🎯 全球直连
   - RULE-SET,telegram,📲 Telegram
   - RULE-SET,youtube,📹 YouTube
+  - RULE-SET,proxyqichiyu,🚀 节点选择
   - RULE-SET,ai,🤖 AI
   - RULE-SET,LocalAreaNetwork,🎯 全球直连
   - RULE-SET,UnBan,🎯 全球直连
@@ -345,7 +365,6 @@ rules:
   - RULE-SET,Google,🍀 Google
   - RULE-SET,Microsoft,🪟 Microsoft
   - RULE-SET,Apple,🍎 Apple
-  - RULE-SET,Speedtest,♻️ Speedtest
   - RULE-SET,Epic,🎮 游戏平台
   - RULE-SET,Origin,🎮 游戏平台
   - RULE-SET,Sony,🎮 游戏平台
@@ -358,6 +377,7 @@ rules:
   - RULE-SET,ProxyLite,🚀 节点选择
   - RULE-SET,Download,🎯 全球直连
   - RULE-SET,cn_domain,🎯 全球直连
+  - RULE-SET,privateip,🎯 全球直连
   - RULE-SET,cnip,🎯 全球直连
   - MATCH,🐟 漏网之鱼
   
