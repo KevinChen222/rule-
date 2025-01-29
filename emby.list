@@ -31,7 +31,6 @@ DOMAIN-SUFFIX,pub2cf.emby.wtf
 DOMAIN-SUFFIX,pub3cf.emby.wtf
 DOMAIN-SUFFIX,notnetflix.cos.cat
 DOMAIN-SUFFIX,emby.pilipiliultra.top
-DOMAIN-SUFFIX,jms.niceduck.lol
 DOMAIN-SUFFIX,1111cuct.niceduck.lol
 DOMAIN-SUFFIX,gd.9521732.xyz
 DOMAIN-SUFFIX,chirsemby.top
@@ -42,7 +41,6 @@ DOMAIN-SUFFIX,rd.happyav.eu.org
 DOMAIN-SUFFIX,pilipili.club
 DOMAIN-SUFFIX,pilifun.top
 DOMAIN-SUFFIX,new.happyav.eu.org
-DOMAIN-SUFFIX,loacl.emby.moe
 DOMAIN-SUFFIX,niceduck.lol
 DOMAIN-SUFFIX,hxd.bili.rip
 DOMAIN-SUFFIX,7777777.buzz
@@ -72,3 +70,4 @@ IP-CIDR,208.87.242.145/32,no-resolve
 IP-CIDR,5.45.109.91/32,no-resolve
 IP-CIDR,152.53.37.248/32,no-resolve
 IP-CIDR,100.42.230.169/32,no-resolve
+IP-CIDR,45.196.236.212/32,no-resolve
