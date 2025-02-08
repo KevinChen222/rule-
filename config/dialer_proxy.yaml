@@ -228,7 +228,7 @@ rule-providers:
     path: ./rules/fakeip-filter.mrs
   emby:
     <<: *anchor_rule_providers_classical_text
-    url: https://cfgit.veuiyigesirfdechku.vip/KevinChen222/config/refs/heads/main/emby.list?token=veuiyigesirfdechku
+    url: https://raw.githubusercontent.com/KevinChen222/rule-/refs/heads/main/emby.list
     path: ./rule_providers/emby.list
   nba: 
     <<: *anchor_rule_providers_classical_text
