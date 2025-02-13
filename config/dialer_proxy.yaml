@@ -1,7 +1,7 @@
 proxy-providers:
   主用机场:
     type: http
-    url: "删去文字内容，引号内填入订阅链接"
+    url: "引号内填入订阅链接"
     path: ./proxies/main.yaml
     interval: 86400
     override:
@@ -13,7 +13,7 @@ proxy-providers:
       interval: 600
   大流量机场:
     type: http
-    url: "删去文字内容，引号内填入订阅链接"
+    url: "引号内填入订阅链接"
     path: ./proxies/traffic.yaml
     interval: 86400
     override:
@@ -25,7 +25,7 @@ proxy-providers:
       interval: 600
   亚洲落地:
     type: http
-    url: "删去文字内容，引号内填入订阅链接"
+    url: "引号内填入订阅链接"
     path: ./proxies/aisa_vps.yaml
     interval: 86400
     override:
@@ -38,7 +38,7 @@ proxy-providers:
       interval: 600
   美洲落地:
     type: http
-    url: "删去文字内容，引号内填入订阅链接"
+    url: "引号内填入订阅链接"
     path: ./proxies/america_vps.yaml
     interval: 86400
     override:
@@ -119,55 +119,39 @@ hosts:
 dns:
   enable: true
   ipv6: false
-  respect-rules: false
+  respect-rules: true
   listen: 0.0.0.0:1053
   use-hosts: true
-  # fake-ip-range: 198.18.0.1/16
-  enhanced-mode: redir-host      # fake-ip
-  # fake-ip-filter-mode: blacklist
-  # fake-ip-filter: ["rule-set:fakeip-filter,cn_domain,private,GameDownloadCN,GameDownload,Apple,Download,onedrive"]
-  # prefer-h3: true
+  enhanced-mode: redir-host
   nameserver:
-    - 202.96.128.166
-    - 223.5.5.5
-    - 1.12.12.12
-  # default-nameserver:
-    # - 223.5.5.5
-    # - 202.96.128.166
-    # - 116.62.107.148:1153
-  fallback:
-    - https://8.8.8.8/dns-query
-    - https://1.1.1.1/dns-query
+    - tls://8.8.8,8
+    - tls://1.1.1.1
   proxy-server-nameserver:
-    - https://202.96.128.166/dns-query
+    - https://223.5.5.5/dns-query
+    - https://1.12.12.12/dns-query
+  direct-nameserver:
     - https://223.5.5.5/dns-query
     - https://1.12.12.12/dns-query
   nameserver-policy:
-    "rule-set:cn_domain,ChinaMedia,GameDownloadCN,private":
-      - https://202.96.128.166/dns-query
-      - https://223.5.5.5/dns-query
-      - https://1.12.12.12/dns-query
-    "rule-set:Microsoft,Proxy,geolocation-!cn":
-      - "https://1.1.1.1/dns-query"
-      - "https://8.8.8.8/dns-query"
-  direct-nameserver:
-    - https://202.96.128.166/dns-query
-    - https://223.5.5.5/dns-query
-    - https://1.12.12.12/dns-query
-
+    "rule-set:Google,Google_play":
+      - tls://8.8.8,8
+      - tls://1.1.1.1
+    "rule-set:directkevin,cn_domain,ChinaMedia,private,PrivateTracker":
+      - 119.29.29.29
+      - 223.5.5.5.5
 
 
 proxy-groups:
   - {name: 🐸 手动切换, type: select, include-all: true}
   - {name: 🏀 NBA, type: select, proxies: [⭐ 香港故转, 🔯 香港故转, 🟡 亚洲链式, 🕊️ 低倍率节点, 🇨🇳 台湾节点, 🐸 手动切换]}
-  - {name: 📺 视频推流, type: select, proxies: [🔴 低倍率故转, 🏡 家宽直连, 🇭🇰 香港节点, ⚫ 美洲链式, 🟡 亚洲链式, 🟣 低倍率均衡, 🕊️ 低倍率节点, DIRECT, ⭐ 美国故转, 🔯 美国故转, 🇺🇲 美国节点, ⭐ 香港故转, 🐸 手动切换]}
-  - {name: 🐟 漏网之鱼, type: select, proxies: [🇭🇰 香港自动选择, 🦁 狮城自动选择, 🇭🇰 香港节点, 🟡 亚洲链式, DIRECT, 🕊️ 低倍率节点, 🔴 低倍率故转, 🟣 低倍率均衡, ⚫ 美洲链式, 🏡 家宽直连, 🇨🇳 台湾节点, 🌐 其他地区, 🚀 节点选择, 🇯🇵 日本节点, 🇸🇬 新加坡节点, 🐸 手动切换]}
+  - {name: 📺 视频推流, type: select, proxies: [🔴 低倍率故转, DIRECT, 🏡 家宽直连, 🇭🇰 香港节点, ⚫ 美洲链式, 🟡 亚洲链式, 🕊️ 低倍率节点, ⭐ 美国故转, ⭐ 香港故转, 🐸 手动切换]}
+  - {name: 🐟 漏网之鱼, type: select, proxies: [🐸 手动切换, 🇭🇰 香港自动选择, 🦁 狮城自动选择, 🇭🇰 香港节点, 🟡 亚洲链式, DIRECT, 🕊️ 低倍率节点, 🔴 低倍率故转, 🟣 低倍率均衡, ⚫ 美洲链式, 🏡 家宽直连, 🇨🇳 台湾节点, 🌐 其他地区, 🚀 节点选择, 🇯🇵 日本节点, 🇸🇬 新加坡节点]}
   - {name: 📲 Telegram, type: select, proxies: [🟡 亚洲链式, 🇸🇬 新加坡节点, 🔯 新加坡故转, 🇭🇰 香港节点, 🚀 节点选择, 🔯 香港故转, 🔯 美国故转, ⭐ 香港故转, ⭐ 美国故转, 🇯🇵 日本节点, 🐸 手动切换]}
   - {name: 🚀 节点选择, type: select, proxies: [⚫ 美洲链式, 🇺🇲 美国节点, 🟡 亚洲链式, 🔯 美国故转, 🔯 香港故转, 🔯 新加坡故转, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 新加坡节点, 🌐 其他地区, 🏡 家宽直连, 🕊️ 低倍率节点, 🐸 手动切换, DIRECT]}
   - {name: 🎮 游戏平台, type: select, proxies: [DIRECT, 🚀 节点选择, 🔯 香港故转, 🔯 美国故转, 🔯 新加坡故转, ⭐ 香港故转, ⭐ 美国故转, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 新加坡节点, 🐸 手动切换]}
   - {name: 🌍 国外媒体, type: select, proxies: [⭐ 新加坡故转, 🔯 新加坡故转, 🟡 亚洲链式, 🕊️ 低倍率节点, 🌐 其他地区, 🐸 手动切换, DIRECT]}
-  - {name: 🤖 AI, type: select, proxies: [🔯 美国故转, 🚀 节点选择, 🏡 家宽直连, 🟡 亚洲链式, 🇺🇲 美国节点, ⚫ 美洲链式, 🇯🇵 日本节点]}
-  - {name: 🪟 Microsoft, type: select, proxies: [🔴 低倍率故转, 🔯 日本故转, 🇯🇵 日本节点, DIRECT, 🕊️ 低倍率节点, 🚀 节点选择, 🔯 美国故转, 🔯 香港故转, 🐸 手动切换]}
+  - {name: 🤖 AI, type: select, proxies: [🏡 家宽直连, 🔯 美国故转, 🚀 节点选择, 🟡 亚洲链式, 🇺🇲 美国节点, ⚫ 美洲链式, 🇯🇵 日本节点]}
+  - {name: 🪟 Microsoft, type: select, proxies: [🔯 日本故转, 🔴 低倍率故转, 🇯🇵 日本节点, DIRECT, 🕊️ 低倍率节点, 🚀 节点选择, 🔯 美国故转, 🔯 香港故转, 🐸 手动切换]}
   - {name: 🍎 Apple, type: select, proxies: [DIRECT, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 新加坡节点, 🇺🇲 美国节点, 🐸 手动切换, 🚀 节点选择]}
   - {name: 🌐 其他地区, type: select, include-all: true, filter: "(?i)^(?!.*(HK|🇭🇰|香港|Hong Kong|TW|🇨🇳|🇹🇼|台湾|台灣|Taiwan|SG|🇸🇬|新加坡|狮城|Singapore|JP|🇯🇵|日本|Japan|US|USA|美国|🇺🇸|美國|United States))"}
   - {name: 🏡 家宽直连, type: select, include-all: true, filter: "(?i)直连|家庭|Home|家宽"}
@@ -198,9 +182,9 @@ proxy-groups:
   - {name: ⭐ 日本故转, hidden: true, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 70, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)JP|🇯🇵|日本|Japan"}
   - {name: ⭐ 美国故转, hidden: true, type: fallback, use: [大流量机场], url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 100, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)US|USA|美国|🇺🇸|美國|United States"}
 
-  - {name: 🦁 狮城自动选择, hidden: true, type: url-test, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 120, tolerance: 10, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)^(?!.*(家宽|Home|2x|0.2x|5x)).*(SG|🇸🇬|新加坡|狮城|Singapore)"}
-  - {name: 🏹 美国自动选择, type: url-test, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 120, tolerance: 15, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)^(?!.*(家宽|2x|Home|5x|0.2x)).*(US|USA|美国|🇺🇸|美國|United States)"}
-  - {name: 🇭🇰 香港自动选择, type: url-test, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 120, tolerance: 5, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)^(?!.*(家宽|Home|2x|0.2x|5x)).*(HK|🇭🇰|香港|Hong Kong)"}
+  - {name: 🦁 狮城自动选择, hidden: true, type: url-test, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 120, tolerance: 10, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)^(?!.*(广港|成港|沪日|Home|家宽|2x|0.2x)).*(SG|🇸🇬|新加坡|狮城|Singapore)"}
+  - {name: 🏹 美国自动选择, type: url-test, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 120, tolerance: 15, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)^(?!.*(广港|成港|沪日|家宽|2x|Home|5x|0.2x)).*(US|USA|美国|🇺🇸|美國|United States)"}
+  - {name: 🇭🇰 香港自动选择, type: url-test, use: [主用机场], url: http://www.gstatic.com/generate_204, interval: 120, tolerance: 5, timeout: 3000, max-failed-times: 3, lazy: true, filter: "(?i)^(?!.*(广港|成港|家宽|Home|2x|0.2x|5x)).*(HK|🇭🇰|香港|Hong Kong)"}
 
   - {name: 亚洲跳板, type: select, proxies: [🇭🇰 香港自动选择, 🦁 狮城自动选择, ♌ 新加坡均衡, ♐ 香港均衡, 🍙 日本均衡, 🔯 香港故转, 🔯 新加坡故转, ⭐ 香港故转, 🟣 低倍率均衡, 🔴 低倍率故转, 🐸 手动切换, DIRECT]}
   - {name: 🟡 亚洲链式, hidden: true, type: select, use: [亚洲落地]}
@@ -232,7 +216,7 @@ rule-providers:
     path: ./rules/fakeip-filter.mrs
   emby:
     <<: *anchor_rule_providers_classical_text
-    url: https://cfgit.veuiyigesirfdechku.vip/KevinChen222/config/refs/heads/main/emby.list?token=veuiyigesirfdechku
+    url: https://raw.githubusercontent.com/KevinChen222/rule-/refs/heads/main/emby.list
     path: ./rule_providers/emby.list
   nba: 
     <<: *anchor_rule_providers_classical_text
@@ -243,80 +227,100 @@ rule-providers:
     url: https://raw.githubusercontent.com/KevinChen222/rule-/refs/heads/main/DirectKevin.list
     path: ./rule_providers/directkevin.list
   telegram: 
-    <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram_No_Resolve.yaml
-    path: ./rule_providers/Telegram.yaml
+    <<: *anchor_rule_providers_domain_mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs
+    path: ./rule_providers/Telegram.mrs
+  telegram_ip: 
+    <<: *anchor_rule_providers_ipcidr_mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs
+    path: ./rule_providers/Telegram_ip.mrs
   youtube: 
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml
     path: ./rule_providers/YouTube.yaml
   proxyqichiyu: 
     <<: *anchor_rule_providers_classical_text
     url: https://raw.githubusercontent.com/KevinChen222/rule-/refs/heads/main/ProxyLite.list
     path: ./rule_providers/proxyqichiyu.list
   ai: 
-    <<: *anchor_rule_providers_classical_text
-    url: https://raw.githubusercontent.com/DustinWin/domain-list-custom/refs/heads/domains/ai.list
-    path: ./rule_providers/ai.list
+    <<: *anchor_rule_providers_domain_mrs
+    url: https://github.com/666OS/YYDS/raw/main/mihomo/rules/category-ai-chat-!cn.mrs
+    path: ./rule_providers/ai.mrs
+  ai_ip: 
+    <<: *anchor_rule_providers_ipcidr_mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/ai.mrs
+    path: ./rule_providers/ai_ip.mrs
   private: 
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Lan/Lan_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Lan/Lan.yaml
     path: ./rule_providers/private.yaml
   FCM:
-    <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GoogleFCM/GoogleFCM_No_Resolve.yaml
-    path: ./rule_providers/GoogleFCM.yaml
+    <<: *anchor_rule_providers_domain_mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/googlefcm.mrs
+    path: ./rule_providers/GoogleFCM.mrs
   GitHub: 
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub.yaml
     path: ./rule_providers/GitHub.yaml
+  Google_play: 
+    <<: *anchor_rule_providers_domain_mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-play.mrs
+    path: ./rule_providers/Google_play.mrs
   Google: 
-    <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google_No_Resolve.yaml
-    path: ./rule_providers/Google.yaml
+    <<: *anchor_rule_providers_domain_mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs
+    path: ./rule_providers/Google.mrs
+  Googleasn_ip: 
+    <<: *anchor_rule_providers_ipcidr_mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/asn/AS24424.mrs
+    path: ./rule_providers/Googleasn_ip.mrs
+  Google_ip: 
+    <<: *anchor_rule_providers_ipcidr_mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs
+    path: ./rule_providers/Google_ip.mrs
   Microsoft:
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml
     path: ./rule_providers/Microsoft.yaml
   Apple:
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Classical_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Classical.yaml
     path: ./rule_providers/Apple.yaml
   GameDownloadCN:
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/GameDownloadCN/GameDownloadCN_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/GameDownloadCN/GameDownloadCN.yaml
     path: ./rule_providers/GameDownloadCN.yaml
   GameDownload:
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/GameDownload/GameDownload_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/GameDownload/GameDownload.yaml
     path: ./rule_providers/GameDownload.yaml
   Steam:
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml
     path: ./rule_providers/Steam.yaml
   Epic: 
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Epic/Epic_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Epic/Epic.yaml
     path: ./rule_providers/Epic.yaml
   Origin: 
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Origin/Origin_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Origin/Origin.yaml
     path: ./rule_providers/Origin.yaml
   Sony:
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Sony/Sony_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Sony/Sony.yaml
     path: ./rule_providers/Sony.yaml
   Nintendo:
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Nintendo/Nintendo_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Nintendo/Nintendo.yaml
     path: ./rule_providers/Nintendo.yaml
   Xbox:
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Xbox/Xbox_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Xbox/Xbox.yaml
     path: ./rule_providers/Xbox.yaml
   ChinaMedia:
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMedia/ChinaMedia_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMedia/ChinaMedia.yaml
     path: ./rule_providers/ChinaMedia.yaml
   Twitch:
     <<: *anchor_rule_providers_classical_yaml
@@ -324,7 +328,7 @@ rule-providers:
     path: ./rule_providers/twitch.yaml
   TikTok:
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.yaml
     path: ./rule_providers/TikTok.yaml
   max: 
     <<: *anchor_rule_providers_classical_text
@@ -332,11 +336,11 @@ rule-providers:
     path: ./rule_providers/max.list
   GlobalMedia: 
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia_Classical_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml
     path: ./rule_providers/GlobalMedia.yaml
   Download: # 🎯 全球直连
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Download/Download_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Download/Download.yaml
     path: ./rule_providers/Download.yaml
   onedrive:
     <<: *anchor_rule_providers_classical_yaml
@@ -344,28 +348,28 @@ rule-providers:
     path: ./rule_providers/onedrive.yaml
   PrivateTracker: # 🎯 全球直连
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PrivateTracker/PrivateTracker_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PrivateTracker/PrivateTracker.yaml
     path: ./rule_providers/PrivateTracker.yaml
   Twitter:
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitter/Twitter_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitter/Twitter.yaml
     path: ./rule_providers/Twitter.yaml
   Proxy:
     <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Proxy/Proxy_Classical_No_Resolve.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Proxy/Proxy.yaml
     path: ./rule_providers/Proxy.yaml
   geolocation-!cn:
     <<: *anchor_rule_providers_domain_mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs
     path: ./rules/geolocation-!cn.mrs
   cn_domain: 
-    <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China_Classical_No_Resolve.yaml
-    path: ./rule_providers/China_domain.yaml
+    <<: *anchor_rule_providers_domain_mrs
+    url: https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/cn.mrs
+    path: ./rule_providers/China_domain.mrs
   cnip:
-    <<: *anchor_rule_providers_classical_yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaIPs/ChinaIPs_Classical_No_Resolve.yaml
-    path: ./rule_providers/ChinaIPs.yaml
+    <<: *anchor_rule_providers_ipcidr_mrs
+    url: https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/cnip.mrs
+    path: ./rule_providers/ChinaIPs.mrs
 
 rules:
   - RULE-SET,ad,REJECT
@@ -373,15 +377,20 @@ rules:
   - RULE-SET,nba,🏀 NBA
   - RULE-SET,directkevin,🎯 全球直连
   - RULE-SET,telegram,📲 Telegram
+  - RULE-SET,telegram_ip,📲 Telegram,no-resolve
   - AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,youtube)),REJECT
   - RULE-SET,youtube,📺 视频推流
   - RULE-SET,proxyqichiyu,🚀 节点选择
   - RULE-SET,ai,🤖 AI
+  - RULE-SET,ai_ip,🤖 AI,no-resolve
   - RULE-SET,private,🎯 全球直连
   - RULE-SET,FCM,🚀 节点选择
   - RULE-SET,GameDownloadCN,🎯 全球直连
   - RULE-SET,GitHub,🚀 节点选择
+  - RULE-SET,Google_play,🚀 节点选择
   - RULE-SET,Google,🚀 节点选择
+  - RULE-SET,Googleasn_ip,🚀 节点选择,no-resolve
+  - RULE-SET,Google_ip,🚀 节点选择,no-resolve
   - RULE-SET,Microsoft,🪟 Microsoft
   - RULE-SET,Apple,🍎 Apple
   - RULE-SET,Steam,🎮 游戏平台
@@ -402,6 +411,5 @@ rules:
   - RULE-SET,Twitter,🚀 节点选择
   - RULE-SET,Proxy,🚀 节点选择
   - RULE-SET,cn_domain,🎯 全球直连
-  - RULE-SET,cnip,🎯 全球直连
+  - RULE-SET,cnip,🎯 全球直连,no-resolve
   - MATCH,🐟 漏网之鱼
-  
