@@ -3,5 +3,7 @@ IP-CIDR,223.5.5.5/32,no-resolve
 IP-CIDR,1.12.12.12/32,no-resolve
 IP-CIDR,180.184.1.1/32,no-resolve
 IP-CIDR,114.114.114.114/32,no-resolve
+IP-CIDR,61.139.2.69/32,no-resolve
+IP-CIDR,218.6.200.139/32,no-resolve
 DOMAIN,doh.pub
 DOMAIN,dns.alidns.com
