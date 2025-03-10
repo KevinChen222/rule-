@@ -2,7 +2,7 @@ DOMAIN-SUFFIX,qichiyu.com
 DOMAIN-SUFFIX,tv.global.mi.com
 DOMAIN-SUFFIX,peekfoc.us
 DOMAIN-KEYWORD,1e100
-IP-CIDR,154.29.154.74/32,no-resolve
+# IP-CIDR,154.29.154.74/32,no-resolve
 
 # 国外DNS
 # DOMAIN-SUFFIX,dns.google
