@@ -3,12 +3,14 @@ DOMAIN-SUFFIX,tv.global.mi.com
 DOMAIN-SUFFIX,peekfoc.us
 DOMAIN-SUFFIX,rfchost.com
 DOMAIN-KEYWORD,1e100
+DOMAIN,cloud.sxxxx.top
 IP-CIDR,154.29.154.74/32,no-resolve
 IP-CIDR,152.53.128.35/32,no-resolve
 IP-CIDR,23.158.72.214/32,no-resolve
 IP-CIDR,152.53.35.84/32,no-resolve
 IP-CIDR,152.53.128.35/32,no-resolve
 IP-CIDR,23.158.72.214/32,no-resolve
+IP-CIDR,23.185.200.116/32,no-resolve
 IP-CIDR,152.53.35.84/32,no-resolve
 
 
