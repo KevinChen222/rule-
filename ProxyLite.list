@@ -4,6 +4,7 @@ DOMAIN-SUFFIX,peekfoc.us
 DOMAIN-SUFFIX,rfchost.com
 DOMAIN-KEYWORD,1e100
 DOMAIN,cloud.sxxxx.top
+DOMAIN,doc.oplist.org
 IP-CIDR,154.29.154.74/32,no-resolve
 IP-CIDR,152.53.128.35/32,no-resolve
 IP-CIDR,23.158.72.214/32,no-resolve
