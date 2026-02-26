@@ -10,6 +10,26 @@ DOMAIN-SUFFIX,memofun.net
 DOMAIN-SUFFIX,nodeseek.com
 DOMAIN-SUFFIX,afusekt.cn
 DOMAIN-SUFFIX,ipinfo.cv
+DOMAIN-SUFFIX,kindle
+DOMAIN-SUFFIX,kindle.it
+DOMAIN-SUFFIX,kindle.in
+DOMAIN-SUFFIX,kindle.com
+DOMAIN-SUFFIX,kindle.de
+DOMAIN-SUFFIX,kindle.jp
+DOMAIN-SUFFIX,kindle.fr
+DOMAIN-SUFFIX,kindleproject.com
+DOMAIN-SUFFIX,kindleoasisnews.com
+DOMAIN-SUFFIX,kindle.es
+DOMAIN-SUFFIX,kindleoasis.com
+DOMAIN-SUFFIX,kindleoasis.info
+DOMAIN-SUFFIX,kindleoasis.jp
+DOMAIN-SUFFIX,kindleoasis.org
+DOMAIN-SUFFIX,kindleoasis.us
+DOMAIN-SUFFIX,kindle.co.jp
+DOMAIN-SUFFIX,kindle.co.uk
+DOMAIN-SUFFIX,kindle.cn
+DOMAIN-SUFFIX,kindleoasis.cn
+DOMAIN-SUFFIX,kindleoasis.com.cn
 DOMAIN-KEYWORD,1e100
 DOMAIN,cloud.sxxxx.top
 DOMAIN,doc.oplist.org
@@ -18,6 +38,7 @@ DOMAIN,1vps.top
 DOMAIN,vuser.niceduck.io
 DOMAIN,x.niceduck.sh
 DOMAIN,zi0.cc
+
 
 # 国外DNS
 DOMAIN-SUFFIX,dns.google
